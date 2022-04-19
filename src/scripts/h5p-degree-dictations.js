@@ -8,9 +8,14 @@ export default class DegreeDictations extends H5P.EventDispatcher {
    */
   constructor(params, contentId, extras = {}) {
     super();
-    let username = H5PIntegration && H5PIntegration.user && H5PIntegration.user.name || 'world';
     this.element = document.createElement('div');
-    this.element.innerText = params.textField.replace('%username', username);
+
+    this.element = document.createElement('div');
+    this.scale = params.scale;
+    this.level = params.level;
+    this.degrees = params.degrees;
+    this.element.innerText = "Correct scales are: " + this.degrees;
+    console.log("Read from params: ", this.scale, this.level, this.degrees, params);
 
     /**
      * Attach library to wrapper.
@@ -19,6 +24,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
      */
     this.attach = function ($wrapper) {
       $wrapper.get(0).classList.add('h5p-degree-dictations');
+      //this.element.innerHTML = "Correct scales are: " + this.degrees;
       $wrapper.get(0).appendChild(this.element);
     };
   }
