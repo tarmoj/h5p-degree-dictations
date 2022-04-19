@@ -1,0 +1,24 @@
+{
+  "title": "Degree Dictations",
+  "description": "Library for H5p Degree Dictations",
+  "majorVersion": 1,
+  "minorVersion": 0,
+  "patchVersion": 0,
+  "runnable": 1,
+  "author": "Tarmo Johannes",
+  "license": "MIT",
+  "machineName": "H5P.DegreeDictations",
+  "embedTypes": [
+    "iframe"
+  ],
+  "preloadedJs": [
+    {
+      "path": "dist/h5p-degree-dictations.js"
+    }
+  ],
+  "preloadedCss": [
+    {
+      "path": "dist/h5p-degree-dictations.css"
+    }
+  ]
+}
