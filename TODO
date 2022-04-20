@@ -10,4 +10,12 @@ Semantics -  enabel creating list of exercises?
 
 Validating user input -  editor eidget?? Ask Pjotr.
 
+## Notes
+
+Steps to use:
+npm run build
+copy dist/js -> server
+brauseris clear cookies, reload
+
+
 
