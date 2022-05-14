@@ -1,12 +1,8 @@
-const $ = H5P.jQuery; // this does not work...
+import * as Tone from "tone";
 
-const simplify = (string) => {
-  if (typeof(string)==="string") {
-    return string.trim().replace(/\s\s+/g, ' ');
-  } else {
-    return string;
-  }
-}
+const $ = H5P.jQuery;
+
+// constants and helper functions
 
 const scaleDefinitions = { // defined in semitones from tonis
   major : [0, 2, 4, 5, 7, 9, 11, 12],
@@ -14,6 +10,33 @@ const scaleDefinitions = { // defined in semitones from tonis
   minorNatural : [0, 2, 3, 5, 7, 8, 10, 12],
   minorHarmonic : [0, 2, 3, 5, 7, 8, 11, 12]
 };
+
+const stringToIntArray = (str) => { // string  must include numbers separated by spaces or commas
+  const numArray = [];
+  for (let element of str.trim().split(/[ ,]+/) ) { // split by comma or white space
+    const number = parseInt(element);
+    if (number) {
+      numArray.push(number);
+    }
+  }
+  return numArray;
+}
+
+const isDigit = char => /^\d+$/.test(char);
+
+const insertSpace = (input) => {
+  const index = input.length-1;
+  console.log("input: ", input);
+  // if two last symbols are digits, insert a space in between of them
+  if (index>=1) {
+    if (isDigit(input.charAt(index)) && isDigit(input.charAt(index-1))) {
+      input = input.substr(0, index) + " " + input.substr(index);
+      //console.log("Inserted space: ", input, index, input.substr(0, index));
+    }
+  }
+  // hardCoded for now: TODO: pass element as parameter: or rewrite the function
+  $("#degreeInput").val(input);
+}
 
 export default class DegreeDictations extends H5P.EventDispatcher {
 
@@ -29,36 +52,146 @@ export default class DegreeDictations extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
     super();
 
-
-    this.element = document.createElement('div');
     this.scale = params.scale;
     this.level = params.level;
-    this.degrees = params.degrees; // ADD simplify() comes in as a string  separated with spaces, turn into array
-    this.element.innerText = "Correct degrees are: " + this.degrees;
-    console.log("Read from params: ", this.scale, this.level, this.degrees, params);
-    this.degreeInput = document.createElement('input'); //$("<input>", { id:"degreeInput", type:"text", value:"enter degrees" });
-    this.degreeInput.type = "text";
-    this.degreeInput.id = "degreeInput";
+
+    console.log("Params: ", params);
 
     // don't deal with notation at this point, just playback
-    this.tonicNoteNumber = 60; // TODO: take random
+    this.tonicNoteNumber = 60 + Math.floor(Math.random()*7); // different tonic on different starts
+    this.degreeArray = [];
+    this.tempo = 60; // later from slider
+    this.loaded = false;
+    this.answered = false;
+    this.audioEnabled = false;
+
+
+    // SOUND -----
+
+    const reverb = new Tone.Reverb( {decay:2.5, wet:0.1} ).toDestination();
+
+    const createSampler = (instrument) => {
+      this.loaded = false;
+      const sampleList = {};
+      for (let i=60; i<=84; i++) {
+        //TODO: check if file exists
+        sampleList[i]=i+".mp3";
+      }
+
+      const sampler = new Tone.Sampler( {
+            urls: sampleList,
+            baseUrl: "./instruments/"+instrument + "/",
+            release: 0.5,
+            onerror: (error) => { console.log("error on loading", error) },
+            onload: () => { console.log("Samples loaded"); sampler.connect(reverb); this.loaded = true;  }
+          }
+      ).sync();
+      return sampler;
+    }
+
+    this.sampler = createSampler("guitar"); // localStorage to remember this and other settings?
+
+    const play = async () => {
+
+      if (!this.audioEnabled) {
+        await Tone.start();
+        console.log('audio is ready');
+        this.audioEnabled = true;
+      }
+
+      if (Tone.Transport.state === "started") {
+        stopSound();
+      }
+
+      Tone.Transport.start("+0.1");
+
+      let timing = 0;
+      const beatDuration = 60/this.tempo;
+      console.log("beat duration:", beatDuration);
+
+      //play tonic, pause
+      playNote(this.tonicNoteNumber, timing, beatDuration);
+      timing += 2*beatDuration;
+      //console.log("midiNotes at this point: ", this.midiNotes);
+
+      for (let midiNote of this.midiNotes) {
+        playNote(midiNote, timing, beatDuration);
+        timing += beatDuration;
+      }
+    }
+
+    const playNote = ( midiNote=60, when=0, duration=1) => {
+      const freq = Tone.Frequency(midiNote, "midi").toFrequency();
+      const volume = 0.6;
+
+      if (this.sampler) {
+        this.sampler.triggerAttackRelease(freq, duration+0.5, when, volume); //
+      } else {
+        console.log("Sampler is null: ", sampler);
+      }
+
+    }
+
+    const stopSound = () => {
+      console.log("stopSound")
+      this.sampler.releaseAll();
+      Tone.Transport.cancel(0);
+      Tone.Transport.stop("+0.01");
+    }
 
 
 
-    // methods
-    this.play = () => {
-      // TODO: simply string
-      // find interval in semitones
-      const degrees = this.degrees.split(" ");
-      if (!degrees) {
-        console.log("error in splitting degreeString");
-        return;
+    // exercise logic -----------------------------
+
+    const checkDegreesResponse = (responseString) => {
+
+      if (this.answered) { alert("You have already answered"); return; }
+
+      let isCorrect = true;
+      this.answered = true;
+      const correctArray =  this.degreeArray;
+      const responseArray = stringToIntArray(responseString);
+      let correctString = "";
+      console.log("Responsearray: ", responseArray)
+
+      for (let i=0; i<correctArray.length; i++ ) {
+        const responseDegree = Math.abs(responseArray[i]);
+        const correctDegree = Math.abs(correctArray[i]);
+        correctString += (correctDegree === 8)  ? "1 " :  (correctDegree.toString() + " ");
+
+        if (responseDegree !== correctDegree ) { // ignore minus signs
+          if (correctDegree === 8 && responseDegree===1) { // there is no 8. degree actually, 1st is correct but allow both in the answer
+            isCorrect = true;
+          } else {
+            console.log("Wrong degree: ", i, responseDegree[i]);
+            isCorrect = false;
+          }
+        }
+      }
+
+      if (isCorrect) {
+        $("#feedBack").html("Correct!");
+      } else {
+        $("#feedBack").html("Wrong! The correct degrees are: " + correctString);
+      }
+    }
+
+
+    const createMidiSequence = ( degreeString) => {
+      const degrees =  stringToIntArray(degreeString); //simplify(degreeString).split(" "); // simplify the string
+      console.log("Degree Array", degrees);
+      this.degreeArray = degrees; // save it for later control
+
+      const midiNotes = [];
+
+      if (degrees.length<7) {
+        console.log("error in splitting degreeString or not enough degrees");
+        return [];
       }
       const scale = scaleDefinitions[this.scale];
       if (scale) {
-        for (let i=0; i<degrees.length; i++) {
-          const degree = parseInt(this.degrees[i]);
-          if (degree < -5 || degree > 8  ) {
+        for (let degree of degrees) {
+          if ( ![-5, -6, -7, 1, 2, 3, 4, 5, 6, 7, 8].includes(degree)  ) {
             console.log("Wrong degree: ", degree);
             break;
           }
@@ -69,15 +202,20 @@ export default class DegreeDictations extends H5P.EventDispatcher {
             semitones = -(12-scale[Math.abs(degree)-1]);
           }
           const midiNote = this.tonicNoteNumber + semitones;
+          midiNotes.push(midiNote);
           console.log("degree, index, semitones, NN", degree, semitones, midiNote);
         }
 
       } else {
         console.log("Could not find definition for scale ", this.scale);
       }
-
-
+      return  midiNotes;
     }
+
+    this.midiNotes = createMidiSequence(params.degrees);
+
+
+
 
 
     // UI: inputField, playButton, stopButton, respondeButton
@@ -90,35 +228,79 @@ export default class DegreeDictations extends H5P.EventDispatcher {
     this.attach = function ($wrapper) {
 
       const self = this;
-      const container = $wrapper.get(0);
-      // container külge saab lisada (appendChild) DOM elemente, $wrapperi külge jQuery elemente.
-      console.log("Container:", container);
-      container.classList.add('h5p-degree-dictations');
-      container.appendChild(this.element);
-      const testDiv = document.createElement('div');
-      testDiv.innerHTML = '<br />Suvaline div<br/><b>>Kaherealine</b>';
-      container.appendChild(testDiv);
 
-      container.append(this.degreeInput);
+      $wrapper.append(`
+      <h1>Degree dictation</h1>
+      <p>You will here first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7</p>
+      <br />
+      `);
 
+      const $instrumentSelection = ($('<select>', {
+        id: 'instrumentSelection',
+        change: function (event) {
+          const instrument = event.target.value;
+          console.log("Change", event.target.value);
+          self.sampler = createSampler(instrument);
+        }
+      }));
+
+      $instrumentSelection.append([
+        $('<option>').val('guitar').text('Guitar'),
+        $('<option>').val('oboe').text('Oboe'),
+        $('<option>').val('flute').text('Flute'),
+        $('<option>').val('violin').text('Violin'),
+      ]);
+
+      $wrapper.append(['<span>Instrument: </span>', $instrumentSelection], '<br />');
       $wrapper.append($('<button>', {
         text: "PLAY",
         id: 'playButton',
         click: function () {
           console.log("PLAY");
-          self.play();
+          play();
         }
       }));
+
+      $wrapper.append($('<button>', {
+        text: "STOP",
+        id: 'stopButton',
+        click: function () {
+          console.log("STOP");
+          stopSound();
+          //self.stop();
+        }
+      }));
+
+      $wrapper.append("<br/>");
+
+      $wrapper.append([
+        '<span> Enter degrees: </span>',
+        $('<input>', { type:"text", id:"degreeInput",
+          keyup: (event) => {
+            insertSpace(event.target.value);
+            console.log(event.key);
+            if (event.key==='Enter') {
+              checkDegreesResponse($("#degreeInput").val());
+            }
+          }
+        })
+      ] );
+
+
 
       $wrapper.append($('<button>', {
         text: "CHECK",
         id: 'checkButton',
         click: function () {
-          console.log("Check", self.degreeInput.value);
+          checkDegreesResponse($("#degreeInput").val());
         }
 
       }));
 
+      $wrapper.append('<div id="feedBack"></div>');
+
     };
+
+
   }
 }
