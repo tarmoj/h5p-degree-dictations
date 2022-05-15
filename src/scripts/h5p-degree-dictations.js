@@ -1,4 +1,5 @@
-import * as Tone from "tone";
+//import * as Tone from "tone";
+import {Transport,Sampler, Reverb, Frequency, getContext}  from "tone";
 
 const $ = H5P.jQuery;
 
@@ -68,7 +69,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
     // SOUND -----
 
-    const reverb = new Tone.Reverb( {decay:2.5, wet:0.1} ).toDestination();
+    const reverb = new  Reverb( {decay:2.5, wet:0.1} ).toDestination();
 
     const createSampler = (instrument) => {
       this.loaded = false;
@@ -81,7 +82,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       //const path = H5P.getPath("/drupal7/sites/default/files/h5p/development/H5P.DegreeDictations/dist/instruments/",self.id); // does not work
       const path = "/drupal7/sites/default/files/h5p/development/H5P.DegreeDictations/dist/instruments/" + instrument + "/";
       console.log("Path: ", path, H5P.getLibraryPath("H5P.DegreeDictations"));
-      const sampler = new Tone.Sampler( {
+      const sampler = new  Sampler( {
             urls: sampleList,
             baseUrl: path, //"./instruments/"+instrument + "/",
             release: 0.5,
@@ -97,16 +98,16 @@ export default class DegreeDictations extends H5P.EventDispatcher {
     const play = async () => {
 
       if (!this.audioEnabled) {
-        await Tone.start();
+        await  getContext().resume();
         console.log('audio is ready');
         this.audioEnabled = true;
       }
 
-      if (Tone.Transport.state === "started") {
+      if ( Transport.state === "started") {
         stopSound();
       }
 
-      Tone.Transport.start("+0.1");
+       Transport.start("+0.1");
 
       let timing = 0;
       const beatDuration = 60/this.tempo;
@@ -124,7 +125,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
     }
 
     const playNote = ( midiNote=60, when=0, duration=1) => {
-      const freq = Tone.Frequency(midiNote, "midi").toFrequency();
+      const freq =  Frequency(midiNote, "midi").toFrequency();
       const volume = 0.6;
 
       if (this.sampler) {
@@ -138,8 +139,8 @@ export default class DegreeDictations extends H5P.EventDispatcher {
     const stopSound = () => {
       console.log("stopSound")
       this.sampler.releaseAll();
-      Tone.Transport.cancel(0);
-      Tone.Transport.stop("+0.01");
+       Transport.cancel(0);
+       Transport.stop("+0.01");
     }
 
 
