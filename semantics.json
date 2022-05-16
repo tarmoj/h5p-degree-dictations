@@ -33,11 +33,11 @@
         "label": "Major"
       },
       {
-        "value": "harmonicMinor",
+        "value": "minorHarmonic",
         "label": "Harmonic minor"
       },
       {
-        "value": "naturalMinor",
+        "value": "minorNatural",
         "label": "Natural minor"
       }
     ],
