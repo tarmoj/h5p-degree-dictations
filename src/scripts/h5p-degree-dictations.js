@@ -236,7 +236,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $wrapper.addClass("h5p-degree-dictations");
 
       $wrapper.append(`
-      <p id="description">You will here first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7</p>
+      <p id="explanation">You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7</p>
       <br />
       `);
 

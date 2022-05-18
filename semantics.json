@@ -52,7 +52,7 @@
     "description": "Enter degrees as 7 numbers separated with spaces. Use - (minus) for degrees under tonic. Use 8 for the octave (upper 1. In reseponse both 1 and 8 are correct). Allowed range: lower fifth to octave (-5..8)"
   },
 
-  {"comment", "Tryout to add translatable UI strings not sure if common=true would work....,}
+  {"comment": "Tryout to add translatable UI strings not sure if common=true would work....,"},
   {
     "name": "l10n",
     "type": "group",
@@ -61,11 +61,25 @@
     "common": true,
     "fields": [
       {
-        "name": "name",
+        "name": "explanation",
         "type": "text",
-        "label": "Name",
+        "label": "What is it?",
         "importance": "low",
-        "default": "Video",
-        "description": "Helps identify content of this type."
+        "description": "You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7"
+      },
+      {
+        "name": "instrument",
+        "type": "text",
+        "label": "Instrument",
+        "importance": "low",
+        "description": "Instrument"
       }
     ]
+  },
+
+  { "libraryStrings": {
+    "explanation": "You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7",
+    "instrument": "Instrument"
+    }
+  }
+]
