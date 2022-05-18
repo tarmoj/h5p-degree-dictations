@@ -174,9 +174,9 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       }
 
       if (isCorrect) {
-        $("#feedBack").html("Correct!");
+        $("#feedBack").html('<p class="correct">Correct!"</p>');
       } else {
-        $("#feedBack").html("Wrong! The correct degrees are: " + correctString);
+        $("#feedBack").html('<span class="wrong">Wrong!</span> The correct degrees are: ' + correctString);
       }
     }
 
@@ -233,14 +233,16 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       const self = this;
 
+      $wrapper.addClass("h5p-degree-dictations");
+
       $wrapper.append(`
-      <h1>Degree dictation</h1>
-      <p>You will here first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7</p>
+      <p id="description">You will here first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7</p>
       <br />
       `);
 
       const $instrumentSelection = ($('<select>', {
         id: 'instrumentSelection',
+        class: 'select',
         change: function (event) {
           const instrument = event.target.value;
           console.log("Change", event.target.value);
@@ -253,12 +255,14 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         $('<option>').val('oboe').text('Oboe'),
         $('<option>').val('flute').text('Flute'),
         $('<option>').val('violin').text('Violin'),
+
       ]);
 
       $wrapper.append(['<span>Instrument: </span>', $instrumentSelection], '<br />');
       $wrapper.append($('<button>', {
         text: "PLAY",
         id: 'playButton',
+        class: "button",
         click: function () {
           console.log("PLAY");
           play();
@@ -268,6 +272,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $wrapper.append($('<button>', {
         text: "STOP",
         id: 'stopButton',
+        class: "button",
         click: function () {
           console.log("STOP");
           stopSound();
@@ -279,7 +284,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       $wrapper.append([
         '<span> Enter degrees: </span>',
-        $('<input>', { type:"text", id:"degreeInput",
+        $('<input>', { type:"text", id:"degreeInput", class: "textField",
           keyup: (event) => {
             insertSpace(event.target.value);
             console.log(event.key);
@@ -295,6 +300,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $wrapper.append($('<button>', {
         text: "CHECK",
         id: 'checkButton',
+        class: 'button',
         click: function () {
           checkDegreesResponse($("#degreeInput").val());
         }
@@ -304,7 +310,5 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $wrapper.append('<div id="feedBack"></div>');
 
     };
-
-
   }
 }
