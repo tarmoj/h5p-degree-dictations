@@ -96,8 +96,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         sampleList[i]=i+".mp3";
       }
       // seems I need to hardcode the path for now as H5P.getLibraryPath does not work correctly in development mode
-      //const path = H5P.getPath("/drupal7/sites/default/files/h5p/development/H5P.DegreeDictations/dist/instruments/",self.id); // does not work
-      const path = "/drupal7/sites/default/files/h5p/development/H5P.DegreeDictations/dist/instruments/" + instrument + "/";
+      const path = H5P.getLibraryPath("H5P.DegreeDictations") + "/dist/instruments/" + instrument + "/" ;//"/drupal7/sites/default/files/h5p/development/H5P.DegreeDictations/dist/instruments/" + instrument + "/";
       console.log("Path: ", path, H5P.getLibraryPath("H5P.DegreeDictations"));
       const sampler = new  Sampler( {
             urls: sampleList,
