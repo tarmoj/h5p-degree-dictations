@@ -1,12 +1,9 @@
 
 
-Github Remote Access
+Sound -  praegune sampler kõlab halvasti (envelope vale, viiul, flööt)
+Helivaljus slider
 
-Try translation (language folder)
-
-Script to upload (scp?) -  dist, library.json, package-lock.json,
-
-Semantics -  enabel creating list of exercises?
+Semantics -  enable creating list of exercises?
 
 Validating user input -  editor eidget?? Ask Pjotr.
 
@@ -16,6 +13,11 @@ Steps to use:
 npm run build
 copy dist/js -> server
 brauseris clear cookies, reload
+
+
+language file:
+library kataloogis:
+h5p create-language-file ./  et
 
 
 

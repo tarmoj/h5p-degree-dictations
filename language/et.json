@@ -1,0 +1,89 @@
+{
+  "semantics": [
+     {
+      "label": "Raskusaste",
+      "description": "Üldine raskusaste: lihtne|keskmine|keeruline",
+      "options": [
+        {
+          "label": "Lihtne"
+        },
+        {
+          "label": "Keskmine"
+        },
+        {
+          "label": "Keeruline"
+        }
+      ]
+    },
+    {
+      "label": "Laad",
+      "description": "Harjutuse laad",
+      "options": [
+        {
+          "label": "Mažoor"
+        },
+        {
+          "label": "Harmooniline minoor"
+        },
+        {
+          "label": "Loomulik minoor"
+        }
+      ]
+    },
+    {
+      "label": "Astmed",
+      "placeholder": "1 -7 1 3 5 6 5",
+      "description": "Sisestage astmed - 7 tühikutega eraldatud numbrit. Kasutaga - (miinus), kui aste asub allpool toonikat. Oktavi jaoks (ülemine 1. aste) kasutage 8. (Vastates on nii 1 kui 8 õiged). Lubatud ulatus: alumine 5. aste kuni oktav (-5..8)"
+    },
+    {
+      "label": "UI labels",
+      "fields": [
+        {
+          "label": "Kirjeldus",
+          "default": "Te kuulete kõigepealt toonikat ja seejärel 7 noodist koosnevat meloodiat. Sisetage astmed numbritena 1..7"
+        },        
+        {
+          "default": "Pill"
+        },
+        {
+          "default": "Flööt"
+        },
+        {
+          "label": "Oboe",
+          "default": "Oboe"
+        },
+        {
+          "default": "Kitarr"
+        },
+        {
+          "default": "Viiul"
+        },
+        {
+          "default": "Mängi"
+        },
+        {
+          "default": "Stop"
+        },
+        {
+          "default": "Kontrolli"
+        },
+        {
+          "default": "Sisetage astmed"
+        },
+        {
+          "default": "Õige"
+        },
+        {
+          "default": "Vale"
+        },
+        {
+          "default": "Õiged astmed on:"
+        }
+      ]
+    }
+    
+    
+        
+
+  ]
+}

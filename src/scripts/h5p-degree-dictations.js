@@ -55,8 +55,25 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
     this.scale = params.scale;
     this.level = params.level;
+    // check the code for better translations and add degaults jQuery extend something...
+    this.l10n =  {
+      "explanation" : "You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7",
+      "instrument": "Instrument",
+      "flute":  "Flute",
+      "oboe": "Oboe",
+      "guitar": "Guitar",
+      "violin":  "Violin",
+      "play": "Play",
+      "stop": "Stop",
+      "check": "Check",
+      "enterDegrees":"Enter degrees",
+      "correct": "Correct",
+      "wrong": "Wrong",
+      "correctDegreesAre": "Correct degrees are: ",
+      ...params.l10n
+    };
 
-    console.log("Params: ", params);
+    console.log("Params: ", params, this.l10n);
 
     // don't deal with notation at this point, just playback
     this.tonicNoteNumber = 60 + Math.floor(Math.random()*7); // different tonic on different starts
@@ -174,9 +191,9 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       }
 
       if (isCorrect) {
-        $("#feedBack").html('<p class="correct">Correct!"</p>');
+        $("#feedBack").html('<p class="correct">' + this.l10n.correct + '</p>');
       } else {
-        $("#feedBack").html('<span class="wrong">Wrong!</span> The correct degrees are: ' + correctString);
+        $("#feedBack").html('<span class="wrong">'+ this.l10n.wrong +'!</span>' + this.l10n.correctDegreesAre + " "  + correctString);
       }
     }
 
@@ -235,10 +252,9 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       $wrapper.addClass("h5p-degree-dictations");
 
-      $wrapper.append(`
-      <p id="explanation">You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7</p>
-      <br />
-      `);
+      $wrapper.append( $("<p>").text(this.l10n.explanation) );
+
+      $wrapper.append( "<span>" + this.l10n.instrument + ":</span>" );
 
       const $instrumentSelection = ($('<select>', {
         id: 'instrumentSelection',
@@ -251,16 +267,16 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       }));
 
       $instrumentSelection.append([
-        $('<option>').val('guitar').text('Guitar'),
-        $('<option>').val('oboe').text('Oboe'),
-        $('<option>').val('flute').text('Flute'),
-        $('<option>').val('violin').text('Violin'),
+        $('<option>').val('guitar').text(this.l10n.guitar),
+        $('<option>').val('oboe').text(this.l10n.oboe),
+        $('<option>').val('flute').text(this.l10n.flute),
+        $('<option>').val('violin').text(this.l10n.violin),
 
       ]);
 
-      $wrapper.append(['<span>Instrument: </span>', $instrumentSelection], '<br />');
+      $wrapper.append([ $instrumentSelection, '<br />' ]);
       $wrapper.append($('<button>', {
-        text: "PLAY",
+        text: this.l10n.play,
         id: 'playButton',
         class: "button",
         click: function () {
@@ -270,7 +286,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       }));
 
       $wrapper.append($('<button>', {
-        text: "STOP",
+        text: this.l10n.stop,
         id: 'stopButton',
         class: "button",
         click: function () {
@@ -283,7 +299,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $wrapper.append("<br/>");
 
       $wrapper.append([
-        '<span> Enter degrees: </span>',
+        $('<span>').text(this.l10n.enterDegrees),
         $('<input>', { type:"text", id:"degreeInput", class: "textField",
           keyup: (event) => {
             insertSpace(event.target.value);
@@ -298,7 +314,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
 
       $wrapper.append($('<button>', {
-        text: "CHECK",
+        text: this.l10n.check,
         id: 'checkButton',
         class: 'button',
         click: function () {

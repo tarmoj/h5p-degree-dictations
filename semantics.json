@@ -52,7 +52,7 @@
     "description": "Enter degrees as 7 numbers separated with spaces. Use - (minus) for degrees under tonic. Use 8 for the octave (upper 1. In reseponse both 1 and 8 are correct). Allowed range: lower fifth to octave (-5..8)"
   },
 
-  {"comment": "Tryout to add translatable UI strings not sure if common=true would work....,"},
+
   {
     "name": "l10n",
     "type": "group",
@@ -63,23 +63,70 @@
       {
         "name": "explanation",
         "type": "text",
-        "label": "What is it?",
-        "importance": "low",
-        "description": "You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7"
+        "default": "You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7"
       },
       {
         "name": "instrument",
         "type": "text",
-        "label": "Instrument",
+        "default": "Instrument"
+      },
+      {
+        "name": "flute",
+        "type": "text",
+        "default": "Flute"
+      },
+      {
+        "name": "oboe",
+        "type": "text",
+        "label": "Oboe",
         "importance": "low",
-        "description": "Instrument"
+        "default": "Oboe"
+      },
+      {
+        "name": "guitar",
+        "type": "text",
+        "default": "Guitar"
+      },
+      {
+        "name": "violin",
+        "type": "text",
+        "default": "Violin"
+      },
+      {
+        "name": "play",
+        "type": "text",
+        "default": "Play"
+      },
+      {
+        "name": "stop",
+        "type": "text",
+        "default": "Stop"
+      },
+      {
+        "name": "check",
+        "type": "text",
+        "default": "Check"
+      },
+      {
+        "name": "enterDegrees",
+        "type": "text",
+        "default": "Enter degrees"
+      },
+      {
+        "name": "correct",
+        "type": "text",
+        "default": "Correct"
+      },
+      {
+        "name": "wrong",
+        "type": "text",
+        "default": "Wrong"
+      },
+      {
+        "name": "correctDegreesAre",
+        "type": "text",
+        "default": "Correct degrees are:"
       }
     ]
-  },
-
-  { "libraryStrings": {
-    "explanation": "You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7",
-    "instrument": "Instrument"
-    }
   }
 ]
