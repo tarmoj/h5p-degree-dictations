@@ -1,6 +1,6 @@
 {
   "name": "h5p-degreedictations",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "H5P Library for creating degree dictation exercises",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/h5p/h5p-boilerplate.git"
+    "url": "git+https://github.com/tarmoj/h5p-degree-dictations.git"
   },
   "keywords": [
     "h5p",
