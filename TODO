@@ -15,7 +15,7 @@ copy dist/js -> server
 brauseris clear cookies, reload
 
 pack (from parent directory)
- h5p pack H5P.DegreeDictations DegreeDictations-1.0.1.h5p
+ h5p pack H5P.DegreeDictations DegreeDictations.h5p
 
 language file:
 library kataloogis:
