@@ -74,6 +74,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       "correct": "Correct",
       "wrong": "Wrong",
       "correctDegreesAre": "Correct degrees are: ",
+      "clear": "Clear",
       ...params.l10n
     };
 

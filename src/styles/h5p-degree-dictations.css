@@ -23,7 +23,7 @@
   line-height: 2.2em;
 }
 
-.h5p-degree-dictations .button, .select, .textField {
+.h5p-degree-dictations .button, .select, .textField, .degreeCell {
   /*font-family: arial;*/
   color: var(--primary-text-color) !important;
   box-shadow: 3px 3px 3px var(--dark-primary-color);
@@ -63,6 +63,11 @@
 .h5p-degree-dictations .correct {
   color: green;
   font-weight: bold;
+}
+
+.h5p-degree-dictations .degreeCell {
+  width: 1.2em;
+  background: var(--surface-color);
 }
 
 .h5p-degree-dictations .redBorder {
