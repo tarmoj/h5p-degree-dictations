@@ -9,7 +9,11 @@ const scaleDefinitions = { // defined in semitones from tonis
   major : [0, 2, 4, 5, 7, 9, 11, 12],
   minor: [0, 2, 3, 5, 7, 8, 10, 12], // natural, to be certain that 'minor' is also defined
   minorNatural : [0, 2, 3, 5, 7, 8, 10, 12],
-  minorHarmonic : [0, 2, 3, 5, 7, 8, 11, 12]
+  minorHarmonic : [0, 2, 3, 5, 7, 8, 11, 12],
+  dorian: [0, 2, 3, 5, 7, 9, 10, 12],
+  phrygian: [0, 1, 3, 5, 7, 8, 10, 12],
+  lydian: [0, 2, 4, 6, 7, 9, 11, 12],
+  mixolydian: [0, 2, 4, 5, 7, 9, 10, 12]
 };
 
 const stringToIntArray = (str) => { // string  must include numbers separated by spaces or commas
@@ -166,14 +170,16 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
     // exercise logic -----------------------------
 
-    const checkDegreesResponse = (responseString) => {
+    const checkDegreesResponse = () => {
 
       if (this.answered) { alert("You have already answered"); return; }
 
       let isCorrect = true;
       this.answered = true;
       const correctArray =  this.degreeArray;
-      const responseArray = stringToIntArray(responseString);
+      const responseArray = []; //stringToIntArray(responseString);
+      this.degreeInputCells.map( $cell =>  responseArray.push(parseInt($cell.val())) );
+
       let correctString = "";
       console.log("Responsearray: ", responseArray)
 
@@ -185,10 +191,14 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         if (responseDegree !== correctDegree ) { // ignore minus signs
           if (correctDegree === 8 && responseDegree===1) { // there is no 8. degree actually, 1st is correct but allow both in the answer
             isCorrect = true;
+            this.degreeInputCells[i].addClass("greenBorder");
           } else {
             console.log("Wrong degree: ", i, responseDegree[i]);
+            this.degreeInputCells[i].addClass("redBorder");
             isCorrect = false;
           }
+        } else {
+          this.degreeInputCells[i].addClass("greenBorder");
         }
       }
 
@@ -242,6 +252,93 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
 
     // UI: inputField, playButton, stopButton, respondeButton
+
+    const validateInput = (userInput) => { // check if allowed degree
+      return [-5,-6,-7,1,2,3,4,5,6,7,8].includes(parseInt(userInput));
+    }
+
+    this.degreeInputCells = []; // array of input elements
+
+
+    const createDegreeInput = () => { // creates array of 7 inputs
+      this.degreeInputCells = [];
+      const $degreeInput = $('<div>', {id:"degreeInputDiv"});
+      for (let i=0; i<7;i++) {
+        const $cell = $('<input>', {
+              id: "degreeCell" + i,
+              attr: {index: i, 'aria-label': "degree "+(i+1).toString() },
+              class: "degreeCell",
+              type: "text",
+              inputmode: "numeric",
+              size: 1,
+              keyup: (event) => {
+                const index = parseInt(event.target.getAttribute("index"));
+                const input = event.target.value;
+                //console.log(index, input);
+                let result = true;
+                let move = 0;
+
+                if ( /\d/.test(event.key) ) { // if number, validate and move to next
+                  result =  validateInput(input);
+                  //console.log("is digit. result:", result);
+                  if (result) {
+                    if (index<6) move = 1;
+                  }
+                } else if (event.key==="ArrowRight" && index<6) {
+                  move = 1;
+                } else if (event.key==="ArrowLeft" && index>0) {
+                  move = -1;
+                }
+
+                if (move!=0) {
+                  this.degreeInputCells[index+move].focus();
+                }
+                // if (!result) {
+                //   this.degreeInputCells[index].addClass('redBorder');
+                //   $("#errorMessage").show();
+                // } else {
+                //   $("#errorMessage").hide();
+                //   this.degreeInputCells[index].removeClass('redBorder');
+                // }
+                if (event.key==='Enter') {
+                  console.log("Enter");
+                  checkDegreesResponse();
+                }
+              }
+            }
+
+        );
+        $degreeInput.append($cell);
+        this.degreeInputCells.push($cell);
+      }
+
+      $('<button>', {
+        id: "resetButton",
+        class: "button",
+        text: this.l10n.clear,
+        click: () => {
+          for (const $element  of this.degreeInputCells) {
+            $element.val("");
+          }
+        }
+      }).appendTo($degreeInput);
+
+      $('<button>', {
+        text: this.l10n.check,
+        id: 'checkButton',
+        class: 'button',
+        click: function () {
+          checkDegreesResponse();
+        }
+
+      }).appendTo($degreeInput);
+
+      //$('<div>', {id: "errorMessage"}).text("Wrong degree somewhere").appendTo($degreeInput);
+
+      console.log("Created degreeInput: ", $degreeInput, this.degreeInputCells);
+      return $degreeInput; //this.degreeInputCells;
+    }
+
 
     /**
      * Attach library to wrapper.
@@ -301,16 +398,8 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $wrapper.append("<br/>");
 
       $wrapper.append([
-        $('<span>').text(this.l10n.enterDegrees),
-        $('<input>', { type:"text", id:"degreeInput", class: "textField",
-          keyup: (event) => {
-            insertSpace(event.target.value);
-            console.log(event.key);
-            if (event.key==='Enter') {
-              checkDegreesResponse($("#degreeInput").val());
-            }
-          }
-        })
+        $('<span>').html(this.l10n.enterDegrees + ". Mode (scale): <b>" + this.scale + "</b> :"),
+        createDegreeInput()
       ] );
 
 
