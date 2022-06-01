@@ -75,6 +75,8 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       "wrong": "Wrong",
       "correctDegreesAre": "Correct degrees are: ",
       "clear": "Clear",
+      "volume": "Volume",
+      "mode": "Mode (scale)",
       ...params.l10n
     };
 
@@ -389,24 +391,30 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         }
       }));
 
+      $wrapper.append($("<label>").css("margin-left", "15px").text(this.l10n.volume + ":") );
+
+      $wrapper.append( $("<input>", {
+            id: "volumeSlider",
+            type: "range",
+            class: "slider",
+            min: -40,
+            max: 6,
+            value: 0
+          }).on("input change",  (event) => {
+            const value = event.target.value;
+            console.log("Volume: ",  value);
+            this.sampler.volume.rampTo(value, 0.05);
+          } )
+      ) ;
+
+
       $wrapper.append("<br/>");
 
       $wrapper.append([
-        $('<span>').html(this.l10n.enterDegrees + ". Mode (scale): <b>" + this.scale + "</b> :"),
+        $('<span>').html(this.l10n.enterDegrees + ". " + this.l10n.mode + ": <b>" + this.scale + "</b>"),
         createDegreeInput()
       ] );
 
-
-
-      $wrapper.append($('<button>', {
-        text: this.l10n.check,
-        id: 'checkButton',
-        class: 'button',
-        click: function () {
-          checkDegreesResponse($("#degreeInput").val());
-        }
-
-      }));
 
       $wrapper.append('<div id="feedBack"></div>');
 

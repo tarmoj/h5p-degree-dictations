@@ -65,7 +65,7 @@
     "type": "text",
     "label": "Degrees",
     "widget":"degreeInput",
-    "description": "Enter degrees as 7 numbers separated with spaces. Use - (minus) for degrees under tonic. Use 8 for the octave (upper 1. In reseponse both 1 and 8 are correct). Allowed range: lower fifth to octave (-5..8)"
+    "description": "Enter degrees as numbers 1..8. Use - (minus) for degrees under tonic. Use 8 for the octave (upper 1. In reseponse both 1 and 8 are correct). Allowed range: lower fifth to octave (-5..8)"
   },
 
 
@@ -147,7 +147,18 @@
         "name": "clear",
         "type": "text",
         "default": "Clear"
+      },
+      {
+        "name": "volume",
+        "type": "text",
+        "default": "Volume"
+      },
+      {
+        "name": "mode",
+        "type": "text",
+        "default": "Mode (scale)"
       }
+
     ]
   }
 ]

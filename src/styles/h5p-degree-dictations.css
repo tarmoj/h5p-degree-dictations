@@ -79,6 +79,12 @@
   border: 3px solid green;
 }
 
+.h5p-degree-dictations .slider {
+  margin-left: 5px;
+  width: 100px;
+  position: relative;
+  top: 0.5em;
+}
 
 /*made with: https://doodlenerd.com/html-control/css-dropdown-generator*/
 
