@@ -67,6 +67,7 @@
 
 .h5p-degree-dictations .degreeCell {
   width: 1.2em;
+  border-radius: 5px;
   background: var(--surface-color);
 }
 

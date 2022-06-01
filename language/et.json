@@ -1,6 +1,6 @@
 {
   "semantics": [
-     {
+    {
       "label": "Raskusaste",
       "description": "Üldine raskusaste: lihtne|keskmine|keeruline",
       "options": [
@@ -27,6 +27,18 @@
         },
         {
           "label": "Loomulik minoor"
+        },
+        {
+          "label": "Dooria"
+        },
+        {
+          "label": "Früügia"
+        },
+        {
+          "label": "Lüüdia"
+        },
+        {
+          "label": "Miksolüüdia"
         }
       ]
     },
@@ -41,7 +53,7 @@
         {
           "label": "Kirjeldus",
           "default": "Te kuulete kõigepealt toonikat ja seejärel 7 noodist koosnevat meloodiat. Sisetage astmed numbritena 1..7"
-        },        
+        },
         {
           "default": "Pill"
         },
@@ -78,12 +90,12 @@
         },
         {
           "default": "Õiged astmed on:"
+        },
+
+        {
+          "default": "Tühjenda"
         }
       ]
     }
-    
-    
-        
-
   ]
 }

@@ -142,6 +142,11 @@
         "name": "correctDegreesAre",
         "type": "text",
         "default": "Correct degrees are:"
+      },
+      {
+        "name": "clear",
+        "type": "text",
+        "default": "Clear"
       }
     ]
   }

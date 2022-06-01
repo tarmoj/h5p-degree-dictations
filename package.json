@@ -1,6 +1,6 @@
 {
   "name": "h5p-degreedictations",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "H5P Library for creating degree dictation exercises",
   "private": true,
   "scripts": {

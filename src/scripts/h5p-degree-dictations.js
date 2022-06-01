@@ -249,9 +249,6 @@ export default class DegreeDictations extends H5P.EventDispatcher {
     this.midiNotes = createMidiSequence(params.degrees);
 
 
-
-
-
     // UI: inputField, playButton, stopButton, respondeButton
 
     const validateInput = (userInput) => { // check if allowed degree
@@ -294,13 +291,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
                 if (move!=0) {
                   this.degreeInputCells[index+move].focus();
                 }
-                // if (!result) {
-                //   this.degreeInputCells[index].addClass('redBorder');
-                //   $("#errorMessage").show();
-                // } else {
-                //   $("#errorMessage").hide();
-                //   this.degreeInputCells[index].removeClass('redBorder');
-                // }
+
                 if (event.key==='Enter') {
                   console.log("Enter");
                   checkDegreesResponse();
@@ -320,6 +311,8 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         click: () => {
           for (const $element  of this.degreeInputCells) {
             $element.val("");
+            $element.removeClass("redBorder");
+            $element.removeClass("greenBorder");
           }
         }
       }).appendTo($degreeInput);
