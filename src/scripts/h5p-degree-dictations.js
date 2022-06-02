@@ -106,8 +106,17 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       // const path = "/drupal7/sites/default/files/h5p/development/H5P.DegreeDictations/dist/instruments/" + instrument + "/";
 
       //NB! parameter for getLibraryPath must include also the version like -1.0 UPDATE THIS LINE when semantiv version is changed!
-      const path = H5P.getLibraryPath("H5P.DegreeDictations-1.0") + "/dist/instruments/" + instrument + "/" ;
-      console.log("Path: ", path, H5P.getLibraryPath("H5P.DegreeDictations-1.0"));
+
+      // get library name with version:
+      let library = "";
+      if (H5PIntegration) {
+        library = Object.values(H5PIntegration.contents)[0].library.replace(" ","-"); // get the library version from contents and replace space with -
+      } else {
+        library = "H5P.DegreeDictations-1.0"; // fallback but this might be worng version
+      }
+      console.log("The library name and version is: ", library);
+      const path = H5P.getLibraryPath(library) + "/dist/instruments/" + instrument + "/" ;
+      console.log("Path: ", path);
       const sampler = new  Sampler( {
             urls: sampleList,
             baseUrl: path, //"./instruments/"+instrument + "/",

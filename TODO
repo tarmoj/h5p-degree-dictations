@@ -9,6 +9,8 @@ Validating user input -  editor eidget?? OK
 
 Tõlgi laadid (library jaoks).
 
+DegreeInput - võimalda kuulata (pigem WebAudio kui Tone.js)
+
 ## Notes
 
 Steps to use:
