@@ -27,21 +27,8 @@ const stringToIntArray = (str) => { // string  must include numbers separated by
   return numArray;
 }
 
-const isDigit = char => /^\d+$/.test(char);
 
-const insertSpace = (input) => {
-  const index = input.length-1;
-  console.log("input: ", input);
-  // if two last symbols are digits, insert a space in between of them
-  if (index>=1) {
-    if (isDigit(input.charAt(index)) && isDigit(input.charAt(index-1))) {
-      input = input.substr(0, index) + " " + input.substr(index);
-      //console.log("Inserted space: ", input, index, input.substr(0, index));
-    }
-  }
-  // hardCoded for now: TODO: pass element as parameter: or rewrite the function
-  $("#degreeInput").val(input);
-}
+
 
 export default class DegreeDictations extends H5P.EventDispatcher {
 
@@ -86,7 +73,6 @@ export default class DegreeDictations extends H5P.EventDispatcher {
     this.tonicNoteNumber = 60 + Math.floor(Math.random()*7); // different tonic on different starts
     this.degreeArray = [];
     this.tempo = 60; // later from slider
-    this.loaded = false;
     this.answered = false;
     this.audioEnabled = false;
 
@@ -122,7 +108,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
             baseUrl: path, //"./instruments/"+instrument + "/",
             release: 0.5,
             onerror: (error) => { console.log("error on loading", error) },
-            onload: () => { console.log("Samples loaded"); sampler.connect(reverb); this.loaded = true;  }
+            onload: () => { console.log("Samples loaded"); sampler.connect(reverb);  }
           }
       ).sync();
       return sampler;
@@ -299,7 +285,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
                   move = -1;
                 }
 
-                if (move!=0) {
+                if (move!==0) {
                   this.degreeInputCells[index+move].focus();
                 }
 
@@ -389,7 +375,19 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         }
       }));
 
-      $wrapper.append($('<button>', {
+      const $controlRow = $('<div>', {id: "controlRow", class:"verticalCenter"});
+
+      $controlRow.append($('<button>', {
+        text: this.l10n.play,
+        id: 'playButton',
+        class: "button",
+        click: function () {
+          console.log("PLAY");
+          play();
+        }
+      }));
+
+      $controlRow.append($('<button>', {
         text: this.l10n.stop,
         id: 'stopButton',
         class: "button",
@@ -400,9 +398,9 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         }
       }));
 
-      $wrapper.append($("<label>").css("margin-left", "15px").text(this.l10n.volume + ":") );
+      $controlRow.append($("<label>").css("margin-left", "15px").text(this.l10n.volume + ":") );
 
-      $wrapper.append( $("<input>", {
+      $controlRow.append( $("<input>", {
             id: "volumeSlider",
             type: "range",
             class: "slider",
@@ -415,6 +413,8 @@ export default class DegreeDictations extends H5P.EventDispatcher {
             this.sampler.volume.rampTo(value, 0.05);
           } )
       ) ;
+
+      $wrapper.append($controlRow);
 
 
       $wrapper.append("<br/>");
