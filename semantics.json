@@ -1,71 +1,90 @@
 [
-
   {
-    "name": "level",
-    "type": "select",
-    "label": "Difficulty level",
-    "description": "General difficulty level: simple|medium|complex",
-    "options": [
-      {
-        "value": "simple",
-        "label": "Simple"
-      },
-      {
-        "value": "medium",
-        "label": "Medium"
-      },
-      {
-        "value": "complex",
-        "label": "Complex"
-      }
-    ],
-    "default": "simple"
-  },
-
-  {
-    "name": "scale",
-    "type": "select",
-    "label": "Scale (mode)",
-    "description": "Scale where the exercise will be played",
-    "options": [
-      {
-        "value": "major",
-        "label": "Major"
-      },
-      {
-        "value": "minorHarmonic",
-        "label": "Harmonic minor"
-      },
-      {
-        "value": "minorNatural",
-        "label": "Natural minor"
-      },
-      {
-        "value": "dorian",
-        "label": "Dorian"
-      },
-      {
-        "value": "phrygian",
-        "label": "Phrygian"
-      },
-      {
-        "value": "lydian",
-        "label": "Lydian"
-      },
-      {
-        "value": "mixolydian",
-        "label": "Mixolydian"
-      }
-    ],
-    "default": "major"
-  },
-
-  {
-    "name": "degrees",
-    "type": "text",
-    "label": "Degrees",
-    "widget":"degreeInput",
-    "description": "Enter degrees as numbers 1..8. Use - (minus) for degrees under tonic. Use 8 for the octave (upper 1. In reseponse both 1 and 8 are correct). Allowed range: lower fifth to octave (-5..8)"
+    "name": "dictations",
+    "type": "list",
+    "label": "Degree dictation exercises",
+    "description": "Define degree dictations  (max 100)",
+    "entity": "Dictation",
+    "min": 1,
+    "max": 100,
+    "field": {
+      "name": "degreeDictationsField",
+      "type": "group",
+      "label": "Exercise data",
+      "fields": [
+        {
+          "name": "title",
+          "type": "text",
+          "label": "(Sub)title of the exercise",
+          "description": "(Sub)title of the exercise shown in dropdown menu"
+        },
+        {
+          "name": "level",
+          "type": "select",
+          "label": "Difficulty level",
+          "description": "General difficulty level: simple|medium|complex",
+          "options": [
+            {
+              "value": "simple",
+              "label": "Simple"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "complex",
+              "label": "Complex"
+            }
+          ],
+          "default": "simple"
+        },
+        {
+          "name": "scale",
+          "type": "select",
+          "label": "Scale (mode)",
+          "description": "Scale where the exercise will be played",
+          "options": [
+            {
+              "value": "major",
+              "label": "Major"
+            },
+            {
+              "value": "minorHarmonic",
+              "label": "Harmonic minor"
+            },
+            {
+              "value": "minorNatural",
+              "label": "Natural minor"
+            },
+            {
+              "value": "dorian",
+              "label": "Dorian"
+            },
+            {
+              "value": "phrygian",
+              "label": "Phrygian"
+            },
+            {
+              "value": "lydian",
+              "label": "Lydian"
+            },
+            {
+              "value": "mixolydian",
+              "label": "Mixolydian"
+            }
+          ],
+          "default": "major"
+        },
+        {
+          "name": "degrees",
+          "type": "text",
+          "label": "Degrees",
+          "widget": "degreeInput",
+          "description": "Enter degrees as numbers 1..8. Use - (minus) for degrees under tonic. Use 8 for the octave (upper 1. In reseponse both 1 and 8 are correct). Allowed range: lower fifth to octave (-5..8)"
+        }
+      ]
+    }
   },
 
 
