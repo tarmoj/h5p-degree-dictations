@@ -64,17 +64,23 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       "clear": "Clear",
       "volume": "Volume",
       "mode": "Mode (scale)",
+      "selectDictation": "Select dictation",
+      "previous": "Previous",
+      "next": "Next",
       ...params.l10n
     };
 
     console.log("Params: ", params, this.l10n);
 
-    // don't deal with notation at this point, just playback
+    // now exercises is a list from version 1.1.0
+    this.exercises = params.exercises;
+
     this.tonicNoteNumber = 60 + Math.floor(Math.random()*7); // different tonic on different starts
     this.degreeArray = [];
     this.tempo = 60; // later from slider
     this.answered = false;
     this.audioEnabled = false;
+    this.exerciseIndex = 0;
 
 
     // SOUND -----
@@ -91,17 +97,17 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       // seems that in development mode I need to hardcode the path for now as H5P.getLibraryPath does not work correctly in development mode
       // const path = "/drupal7/sites/default/files/h5p/development/H5P.DegreeDictations/dist/instruments/" + instrument + "/";
 
-      //NB! parameter for getLibraryPath must include also the version like -1.0 UPDATE THIS LINE when semantiv version is changed!
+      //NB! parameter for getLibraryPath must include also the version like -1.0 UPDATE THIS LINE when semantic version is changed!
 
       // get library name with version:
-      let library = "";
+      let library;
       if (H5PIntegration) {
         library = Object.values(H5PIntegration.contents)[0].library.replace(" ","-"); // get the library version from contents and replace space with -
       } else {
-        library = "H5P.DegreeDictations-1.1"; // fallback but this might be worng version
+        library = "H5P.DegreeDictations-1.2"; // fallback but this might be worng version
       }
       console.log("The library name and version is: ", library);
-      console.log("This: ", this, H5P);
+      //console.log("This: ", this, H5P);
       //const path = H5P.getLibraryPath(this.libraryInfo.versionedNameNoSpaces) + "/dist/instruments/" + instrument + "/" ; // this does not include libraryInfo...
       const path = H5P.getLibraryPath(library) + "/dist/instruments/" + instrument + "/" ;
       console.log("Path: ", path);
@@ -116,7 +122,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       return sampler;
     }
 
-    this.sampler = createSampler("guitar"); // localStorage to remember this and other settings?
+    this.sampler = createSampler("guitar"); // use localStorage to remember this and other settings?
 
     const play = async () => {
 
@@ -170,6 +176,64 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
     // exercise logic -----------------------------
 
+    const loadExercise = (index) => {
+      this.degreeArray = stringToIntArray(this.exercises[index].degrees);
+      console.log("loadExercise degrees: ", this.degreeArray);
+      this.midiNotes = createMidiSequence(); // from this.degreeArray
+
+    }
+
+    const createMenuRow = () => {
+      const $menuDiv = $("<div>", {id: "menuDiv", class: "vertical-center"});
+      const $exerciseMenu =   $('<select>', {
+        id: "exerciseSelect",
+        attr: {'aria-label': this.l10n.selectDictation},
+        class: "select",
+        change:  (event) => {
+          //console.log("option", event.target.selectedIndex, event.target);
+          const exerciseIndex = event.target.selectedIndex; //parseInt(event.target.value);
+          console.log("Change", exerciseIndex);
+          loadExercise(exerciseIndex);
+        }
+      }) ;
+      for (let i= 0; i<this.exercises.length; i++) {
+        console.log("Adding exercise to menu: ", this.exercises[i].title)
+        $exerciseMenu.append( $('<option>').text(this.exercises[i].title).val(i) );
+      }
+      $menuDiv.append([
+        $('<span>').text(this.l10n.selectDictation),
+        $('<button>', {
+          id: "backButton",
+          class: "button",
+          text: "<",
+          attr: {'aria-label': this.l10n.previous},
+          click: () => {
+            if (this.exerciseIndex>0) {
+              //console.log("Back");
+              $("#exerciseSelect")[0].selectedIndex=this.exerciseIndex-1;
+              $("#exerciseSelect").trigger("change");
+            }
+          }
+        }),
+        $exerciseMenu,
+        // see for style of forward & next: https://www.w3schools.com/howto/howto_css_next_prev.asp
+        $('<button>', {
+          id: "forwardButton",
+          class: "button",
+          attr: {'aria-label': this.l10n.next},
+          text: ">",
+          click: () => {
+            if (this.exerciseIndex<this.exercises.length-1) {
+              //console.log("Forward");
+              $("#exerciseSelect")[0].selectedIndex=this.exerciseIndex + 1;
+              $("#exerciseSelect").trigger("change");
+            }
+          }
+        }),
+      ]);
+      return $menuDiv;
+    };
+
     const checkDegreesResponse = () => {
 
       if (this.answered) { alert("You have already answered"); return; }
@@ -210,15 +274,13 @@ export default class DegreeDictations extends H5P.EventDispatcher {
     }
 
 
-    const createMidiSequence = ( degreeString) => {
-      const degrees =  stringToIntArray(degreeString); //simplify(degreeString).split(" "); // simplify the string
-      console.log("Degree Array", degrees);
-      this.degreeArray = degrees; // save it for later control
+    const createMidiSequence = ( ) => {
+      const degrees =  this.degreeArray; // must be set via in loadExercise
 
       const midiNotes = [];
 
       if (degrees.length<7) {
-        console.log("error in splitting degreeString or not enough degrees");
+        console.log("not enough degrees");
         return [];
       }
       const scale = scaleDefinitions[this.scale];
@@ -245,10 +307,10 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       return  midiNotes;
     }
 
-    this.midiNotes = createMidiSequence(params.degrees);
+    //this.midiNotes = createMidiSequence(params.degrees);
 
 
-    // UI: inputField, playButton, stopButton, respondeButton
+    // UI: inputField, playButton, stopButton, responseButton
 
     const validateInput = (userInput) => { // check if allowed degree
       return [-5,-6,-7,1,2,3,4,5,6,7,8].includes(parseInt(userInput));
@@ -342,7 +404,11 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       const self = this;
 
+      loadExercise(0); // perhaps use localStorage to remember last exercise... must create unique identifier by exercise ID then...
+
       $wrapper.addClass("h5p-degree-dictations");
+
+      $wrapper.append( createMenuRow() );
 
       $wrapper.append( $("<p>").text(this.l10n.explanation) );
 
@@ -368,7 +434,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       //$wrapper.append([ $instrumentSelection, '<br />' ]);
 
-      const $controlRow = $('<div>', {id: "controlRow", class:"verticalCenter"});
+      const $controlRow = $('<div>', {id: "controlRow", class:"vertical-center"});
 
       $controlRow.append($('<button>', {
         text: this.l10n.play,
