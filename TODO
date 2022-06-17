@@ -19,7 +19,7 @@ copy dist/js -> server
 brauseris clear cookies, reload
 
 pack (from parent directory)
- h5p pack H5P.DegreeDictations DegreeDictations.h5p
+ h5p pack H5P.DegreeDictations H5pEditor.DegreeInput  DegreeDictations.h5p
 
 language file:
 library kataloogis:

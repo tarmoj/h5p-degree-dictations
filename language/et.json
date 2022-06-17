@@ -115,9 +115,7 @@
           "default": "Laad"
         },
         {
-        "name": "selectDictation",
-        "type": "text",
-        "default": "Select dictation"
+        "default": "Valige diktaat"
       },
       {
         "default": "Eelmine"
@@ -130,6 +128,36 @@
       },
         {
           "default": "Projekti toetab Euroopa Sotsiaalfond"
+        },
+        {
+          "default": "lihtne"
+        },
+        {
+          "default": "keskmine"
+        },
+        {
+          "default": "keeruline"
+        },
+        {
+          "default": "mažoor"
+        },
+        {
+          "default": "harmooniline minoor"
+        },
+        {
+          "default": "loomulik minoor"
+        },
+        {
+          "default": "dooria"
+        },
+        {
+          "default": "früügia"
+        },
+        {
+          "default": "lüüdia"
+        },
+        {
+          "default": "miksolüüdia"
         }
       ]
     }

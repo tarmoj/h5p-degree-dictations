@@ -201,7 +201,58 @@
         "name": "euSupportText",
         "type": "text",
         "default": "The project is supported by European Social Fund"
+      },
+      {
+        "name": "simple",
+        "type": "text",
+        "default": "Simple"
+      },
+      {
+        "name": "medium",
+        "type": "text",
+        "default": "Medium"
+      },
+      {
+        "name": "complex",
+        "type": "text",
+        "default": "Complex"
+      },
+      {
+        "name": "major",
+        "type": "text",
+        "default": "Major"
+      },
+      {
+        "name": "minorHarmonic",
+        "type": "text",
+        "default": "Harmonic minor"
+      },
+      {
+        "name": "minorNatural",
+        "type": "text",
+        "default": "Natural minor"
+      },
+      {
+        "name": "dorian",
+        "type": "text",
+        "default": "Dorian"
+      },
+      {
+        "name": "phrygian",
+        "type": "text",
+        "default": "Phrygian"
+      },
+      {
+        "name": "lydian",
+        "type": "text",
+        "default": "Lydian"
+      },
+      {
+        "name": "mixolydian",
+        "type": "text",
+        "default": "Mixolydian"
       }
+
     ]
   }
 ]
