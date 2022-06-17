@@ -176,8 +176,32 @@
         "name": "mode",
         "type": "text",
         "default": "Mode (scale)"
+      },
+      {
+        "name": "selectDictation",
+        "type": "text",
+        "default": "Select dictation"
+      },
+      {
+        "name": "previous",
+        "type": "text",
+        "default": "Previous"
+      },
+      {
+        "name": "next",
+        "type": "text",
+        "default": "Next"
+      },
+      {
+        "name": "difficulty",
+        "type": "text",
+        "default": "Difficulty level"
+      },
+      {
+        "name": "euSupportText",
+        "type": "text",
+        "default": "The project is supported by European Social Fund"
       }
-
     ]
   }
 ]

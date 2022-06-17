@@ -44,8 +44,8 @@ export default class DegreeDictations extends H5P.EventDispatcher {
   constructor(params, contentId, extras = {}) {
     super();
 
-    this.scale = params.scale;
-    this.level = params.level;
+    //this.scale = params.scale;
+    //this.level = params.level;
     // check the code for better translations and add degaults jQuery extend something...
     this.l10n =  {
       "explanation" : "You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7",
@@ -67,13 +67,15 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       "selectDictation": "Select dictation",
       "previous": "Previous",
       "next": "Next",
+      "difficulty": "Difficulty level",
+      "euSupportText": "The project is supported by European Social Fund",
       ...params.l10n
     };
 
-    console.log("Params: ", params, this.l10n);
+    console.log("Params: ", params);
 
     // now exercises is a list from version 1.1.0
-    this.exercises = params.exercises;
+    this.exercises = params.dictations;
 
     this.tonicNoteNumber = 60 + Math.floor(Math.random()*7); // different tonic on different starts
     this.degreeArray = [];
@@ -81,6 +83,18 @@ export default class DegreeDictations extends H5P.EventDispatcher {
     this.answered = false;
     this.audioEnabled = false;
     this.exerciseIndex = 0;
+
+    // get library name with version:
+    let library;
+    if (H5PIntegration) {
+      library = Object.values(H5PIntegration.contents)[0].library.replace(" ","-"); // get the library version from contents and replace space with -
+    } else {
+      library = "H5P.DegreeDictations-1.2"; // fallback, do not forget to update it when version changes!
+    }
+    this.libraryPath =  H5P.getLibraryPath(library);
+    console.log("The library name and version and path is: ", library, this.libraryPath);
+
+    //console.log("This: ", this, H5P);
 
 
     // SOUND -----
@@ -99,17 +113,9 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       //NB! parameter for getLibraryPath must include also the version like -1.0 UPDATE THIS LINE when semantic version is changed!
 
-      // get library name with version:
-      let library;
-      if (H5PIntegration) {
-        library = Object.values(H5PIntegration.contents)[0].library.replace(" ","-"); // get the library version from contents and replace space with -
-      } else {
-        library = "H5P.DegreeDictations-1.2"; // fallback but this might be worng version
-      }
-      console.log("The library name and version is: ", library);
-      //console.log("This: ", this, H5P);
+
       //const path = H5P.getLibraryPath(this.libraryInfo.versionedNameNoSpaces) + "/dist/instruments/" + instrument + "/" ; // this does not include libraryInfo...
-      const path = H5P.getLibraryPath(library) + "/dist/instruments/" + instrument + "/" ;
+      const path = this.libraryPath + "/dist/instruments/" + instrument + "/" ;
       console.log("Path: ", path);
       const sampler = new  Sampler( {
             urls: sampleList,
@@ -122,7 +128,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       return sampler;
     }
 
-    this.sampler = createSampler("guitar"); // use localStorage to remember this and other settings?
+    this.sampler =  createSampler("guitar"); // use localStorage to remember this and other settings?
 
     const play = async () => {
 
@@ -177,10 +183,21 @@ export default class DegreeDictations extends H5P.EventDispatcher {
     // exercise logic -----------------------------
 
     const loadExercise = (index) => {
-      this.degreeArray = stringToIntArray(this.exercises[index].degrees);
-      console.log("loadExercise degrees: ", this.degreeArray);
-      this.midiNotes = createMidiSequence(); // from this.degreeArray
+      if ( Transport.state === "started") {
+        stopSound();
+      }
 
+      this.exerciseIndex = index;
+      this.degreeArray = stringToIntArray(this.exercises[index].degrees);
+      console.log("loadExercise degrees: ", index, this.degreeArray);
+      this.midiNotes = createMidiSequence(); // from this.degreeArray
+      this.answered = false;
+
+      // UI changes
+      $("#feedBack").html("");
+      $('#scaleLabel').text(this.exercises[index].scale);
+      $('#levelSpan').text(this.l10n.difficulty + ": " + this.exercises[index].level);
+      clearDegreeInputs();
     }
 
     const createMenuRow = () => {
@@ -209,7 +226,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
           attr: {'aria-label': this.l10n.previous},
           click: () => {
             if (this.exerciseIndex>0) {
-              //console.log("Back");
+              console.log("Back");
               $("#exerciseSelect")[0].selectedIndex=this.exerciseIndex-1;
               $("#exerciseSelect").trigger("change");
             }
@@ -283,7 +300,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         console.log("not enough degrees");
         return [];
       }
-      const scale = scaleDefinitions[this.scale];
+      const scale = scaleDefinitions[this.exercises[this.exerciseIndex].scale];
       if (scale) {
         for (let degree of degrees) {
           if ( ![-5, -6, -7, 1, 2, 3, 4, 5, 6, 7, 8].includes(degree)  ) {
@@ -302,7 +319,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         }
 
       } else {
-        console.log("Could not find definition for scale ", this.scale);
+        console.log("Could not find definition for scale ", this.exercises[this.exerciseIndex].scale);
       }
       return  midiNotes;
     }
@@ -318,6 +335,13 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
     this.degreeInputCells = []; // array of input elements
 
+    const clearDegreeInputs = () => {
+      for (const $element  of this.degreeInputCells) {
+        $element.val("");
+        $element.removeClass("redBorder");
+        $element.removeClass("greenBorder");
+      }
+    }
 
     const createDegreeInput = () => { // creates array of 7 inputs
       this.degreeInputCells = [];
@@ -369,13 +393,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
         id: "resetButton",
         class: "button",
         text: this.l10n.clear,
-        click: () => {
-          for (const $element  of this.degreeInputCells) {
-            $element.val("");
-            $element.removeClass("redBorder");
-            $element.removeClass("greenBorder");
-          }
-        }
+        click: clearDegreeInputs
       }).appendTo($degreeInput);
 
       $('<button>', {
@@ -404,9 +422,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       const self = this;
 
-      loadExercise(0); // perhaps use localStorage to remember last exercise... must create unique identifier by exercise ID then...
-
-      $wrapper.addClass("h5p-degree-dictations");
+     $wrapper.addClass("h5p-degree-dictations");
 
       $wrapper.append( createMenuRow() );
 
@@ -432,7 +448,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       ]);
 
-      //$wrapper.append([ $instrumentSelection, '<br />' ]);
+      $wrapper.append([ $instrumentSelection, '<br />' ]);
 
       const $controlRow = $('<div>', {id: "controlRow", class:"vertical-center"});
 
@@ -478,13 +494,34 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       $wrapper.append("<br/>");
 
+      // set this text in loadExercise
       $wrapper.append([
-        $('<span>').html(this.l10n.enterDegrees + ". " + this.l10n.mode + ": <b>" + this.scale + "</b>"),
+        $('<div>',{id:"levelSpan"}).html(this.l10n.difficulty + ": " + this.exercises[this.exerciseIndex].level),
+        $('<span>').html(this.l10n.enterDegrees + ". " + this.l10n.mode + ': <b><label id="scaleLabel"></label></b>'),
         createDegreeInput()
       ] );
 
 
       $wrapper.append('<div id="feedBack"></div>');
+
+      const euLogoPath = this.libraryPath + "/eu.jpg";
+      console.log("logo path:", euLogoPath);
+      const $euDiv = $('<div>', {id:"euDiv"}).html("<br /><p><small>" + this.l10n.euSupportText +  "</small></p>");
+      $euDiv.append(
+          $('<img>', {
+            id: "euLogo",
+            alt: "The project is supported by EU social Fund",
+            width: "200px",
+            align: "left",
+            src: euLogoPath,
+            load: () => this.trigger("resize") // probably does not work...
+          })
+      );
+
+      $wrapper.append($euDiv);
+
+      loadExercise(0); // perhaps use localStorage to remember last exercise... must create unique identifier by exercise ID then...
+
 
     };
   }
