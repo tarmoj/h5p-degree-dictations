@@ -195,8 +195,12 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       // UI changes
       $("#feedBack").html("");
-      $('#scaleLabel').text(this.exercises[index].scale);
-      $('#levelSpan').text(this.l10n.difficulty + ": " + this.exercises[index].level);
+      let scale = this.exercises[index].scale;
+      if (this.l10n[scale]) scale = this.l10n[scale]; // use translation, if present
+      let level =  this.exercises[index].level;
+      if (this.l10n[level]) level = this.l10n[level];
+      $('#scaleLabel').text(scale);
+      $('#levelSpan').text(this.l10n.difficulty + ": " + level);
       clearDegreeInputs();
     }
 
@@ -284,9 +288,9 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       }
 
       if (isCorrect) {
-        $("#feedBack").html('<p class="correct">' + this.l10n.correct + '</p>');
+        $("#feedBack").html('<p class="correct">' + this.l10n.correct + '</p>').focus();
       } else {
-        $("#feedBack").html('<span class="wrong">'+ this.l10n.wrong +'!</span>' + this.l10n.correctDegreesAre + " "  + correctString);
+        $("#feedBack").html('<span class="wrong">'+ this.l10n.wrong +'!</span>' + this.l10n.correctDegreesAre + " "  + correctString).focus();
       }
     }
 
@@ -502,7 +506,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       ] );
 
 
-      $wrapper.append('<div id="feedBack"></div>');
+      $wrapper.append('<div id="feedBack" tabindex="0"></div>'); // tabIndex for making it focusable
 
       const euLogoPath = this.libraryPath + "/eu.jpg";
       console.log("logo path:", euLogoPath);
