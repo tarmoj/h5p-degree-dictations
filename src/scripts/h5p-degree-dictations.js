@@ -86,11 +86,12 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
     // get library name with version:
     let library;
-    if (H5PIntegration) {
-      library = Object.values(H5PIntegration.contents)[0].library.replace(" ","-"); // get the library version from contents and replace space with -
-    } else {
-      library = "H5P.DegreeDictations-1.2"; // fallback, do not forget to update it when version changes!
-    }
+    // if (H5PIntegration) {
+    //   library = Object.values(H5PIntegration.contents)[0].library.replace(" ","-"); // get the library version from contents and replace space with -
+    // } else {
+    //   library = "H5P.DegreeDictations-1.2"; // fallback, do not forget to update it when version changes!
+    // }
+    library = "H5P.DegreeDictations-1.2"; // hard-code for now H5PIntegration method does not works this way if there are several exercises on the page.
     this.libraryPath =  H5P.getLibraryPath(library);
     console.log("The library name and version and path is: ", library, this.libraryPath);
 

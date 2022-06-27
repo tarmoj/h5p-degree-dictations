@@ -7,7 +7,7 @@ Semantics -  enable creating list of exercises?
 
 Validating user input -  editor eidget?? OK
 
-Tõlgi laadid (library jaoks).
+Tõlgi laadid (library jaoks). OK
 
 keyboard shorcut -  space (play) Ctrl+ -> jrg harjutus, ctrl + <- eelmine - ei hakka praegu...
 
@@ -21,7 +21,7 @@ copy dist/js -> server
 brauseris clear cookies, reload
 
 pack (from parent directory)
- h5p pack H5P.DegreeDictations H5pEditor.DegreeInput  DegreeDictations.h5p
+ h5p pack H5P.DegreeDictations H5PEditor.DegreeInput  DegreeDictations.h5p
 
 language file:
 library kataloogis:
