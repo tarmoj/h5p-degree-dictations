@@ -167,7 +167,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       if (this.sampler) {
         this.sampler.triggerAttackRelease(freq, duration+0.5, when, volume); //
       } else {
-        console.log("Sampler is null: ", sampler);
+        console.log("Sampler is null: ", this.sampler);
       }
 
     }
