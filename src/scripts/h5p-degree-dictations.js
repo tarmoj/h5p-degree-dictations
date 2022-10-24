@@ -69,6 +69,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       "next": "Next",
       "difficulty": "Difficulty level",
       "euSupportText": "The project is supported by European Social Fund",
+      "disclaimerText": "NB! This is not an official H5P.org content type. With any problems please turn to the author tarmo.johannes@muba.edu.ee",
       ...params.l10n
     };
 
@@ -508,6 +509,9 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
 
       $wrapper.append('<div id="feedBack" tabindex="0"></div>'); // tabIndex for making it focusable
+
+      const $disclaimerDiv = $('<div>', {id:"disclaimerDiv"}).html("<br /><small>" + this.l10n.disclaimerText +  "</small>");
+      $wrapper.append($disclaimerDiv);
 
       const euLogoPath = this.libraryPath + "/eu.jpg";
       console.log("logo path:", euLogoPath);

@@ -1,6 +1,12 @@
 {
   "semantics": [
     {
+      "label": "Märguanne",
+      "optional":"true",
+      "default": "See ei ole ametlik H5P.org sisutüüp. Porbleemide korral pöörduge autori poole: tarmo.johannes@muba.edu.ee ",
+      "description": "NB!"
+    },
+    {
       "label": "Astmediktaadid",
       "description": "Koostage harjutus astmediktaatidest (max 100)",
       "entity": "Diktaat",
@@ -158,6 +164,11 @@
         },
         {
           "default": "miksolüüdia"
+        },
+        {
+          "name": "disclaimerText",
+          "type": "text",
+          "default":  "See ei ole ametlik H5P.org sisutüüp. Porbleemide korral pöörduge autori poole: tarmo.johannes@muba.edu.ee"
         }
       ]
     }

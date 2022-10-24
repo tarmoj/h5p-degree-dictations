@@ -1,5 +1,13 @@
 [
   {
+    "label": "Disclaimer",
+    "name": "disclaimer",
+    "type": "text",
+    "optional":"true",
+    "default": "This is not an official H5P.org content type. With any problems please turn to the author tarmo.johannes@muba.edu.ee ",
+    "description": "NB!"
+  },
+  {
     "name": "dictations",
     "type": "list",
     "label": "Degree dictation exercises",
@@ -251,6 +259,11 @@
         "name": "mixolydian",
         "type": "text",
         "default": "Mixolydian"
+      },
+      {
+        "name": "disclaimerText",
+        "type": "text",
+        "default": "NB! This is not an official H5P.org content type. With any problems please turn to the author tarmo.johannes@muba.edu.ee "
       }
 
     ]
