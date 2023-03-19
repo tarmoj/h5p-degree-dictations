@@ -1,0 +1,171 @@
+{
+  "semantics": [
+    {
+      "label": "Disclaimer",
+      "default": "This is not an official H5P.org content type. With any problems please turn to the author tarmo.johannes@muba.edu.ee ",
+      "description": "NB!"
+    },
+    {
+      "label": "Degree dictation exercises",
+      "description": "Define degree dictations  (max 100)",
+      "entity": "Dictation",
+      "field": {
+        "label": "Exercise data",
+        "fields": [
+          {
+            "label": "(Sub)title of the exercise",
+            "description": "(Sub)title of the exercise shown in dropdown menu"
+          },
+          {
+            "label": "Difficulty level",
+            "description": "General difficulty level: simple|medium|complex",
+            "options": [
+              {
+                "label": "Simple"
+              },
+              {
+                "label": "Medium"
+              },
+              {
+                "label": "Complex"
+              }
+            ]
+          },
+          {
+            "label": "Scale (mode)",
+            "description": "Scale where the exercise will be played",
+            "options": [
+              {
+                "label": "Major"
+              },
+              {
+                "label": "Harmonic minor"
+              },
+              {
+                "label": "Natural minor"
+              },
+              {
+                "label": "Dorian"
+              },
+              {
+                "label": "Phrygian"
+              },
+              {
+                "label": "Lydian"
+              },
+              {
+                "label": "Mixolydian"
+              }
+            ]
+          },
+          {
+            "label": "Degrees",
+            "description": "Enter degrees as numbers 1..8. Use - (minus) for degrees under tonic. Use 8 for the octave (upper 1. In reseponse both 1 and 8 are correct). Allowed range: lower fifth to octave (-5..8)"
+          }
+        ]
+      }
+    },
+    {
+      "label": "UI labels",
+      "fields": [
+        {
+          "default": "You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7"
+        },
+        {
+          "default": "Instrument"
+        },
+        {
+          "default": "Flute"
+        },
+        {
+          "label": "Oboe",
+          "default": "Oboe"
+        },
+        {
+          "default": "Guitar"
+        },
+        {
+          "default": "Violin"
+        },
+        {
+          "default": "Play"
+        },
+        {
+          "default": "Stop"
+        },
+        {
+          "default": "Check"
+        },
+        {
+          "default": "Enter degrees"
+        },
+        {
+          "default": "Correct"
+        },
+        {
+          "default": "Wrong"
+        },
+        {
+          "default": "Correct degrees are:"
+        },
+        {
+          "default": "Clear"
+        },
+        {
+          "default": "Volume"
+        },
+        {
+          "default": "Mode (scale)"
+        },
+        {
+          "default": "Select dictation"
+        },
+        {
+          "default": "Previous"
+        },
+        {
+          "default": "Next"
+        },
+        {
+          "default": "Difficulty level"
+        },
+        {
+          "default": "The project is supported by European Social Fund"
+        },
+        {
+          "default": "Simple"
+        },
+        {
+          "default": "Medium"
+        },
+        {
+          "default": "Complex"
+        },
+        {
+          "default": "Major"
+        },
+        {
+          "default": "Harmonic minor"
+        },
+        {
+          "default": "Natural minor"
+        },
+        {
+          "default": "Dorian"
+        },
+        {
+          "default": "Phrygian"
+        },
+        {
+          "default": "Lydian"
+        },
+        {
+          "default": "Mixolydian"
+        },
+        {
+          "default": "NB! This is not an official H5P.org content type. With any problems please turn to the author tarmo.johannes@muba.edu.ee "
+        }
+      ]
+    }
+  ]
+}
