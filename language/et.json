@@ -3,7 +3,7 @@
     {
       "label": "Märguanne",
       "optional":"true",
-      "default": "See ei ole ametlik H5P.org sisutüüp. Porbleemide korral pöörduge autori poole: tarmo.johannes@muba.edu.ee ",
+      "default": "See ei ole ametlik H5P.org sisutüüp. Probleemide korral pöörduge autori poole: tarmo.johannes@muba.edu.ee ",
       "description": "NB!"
     },
     {
@@ -168,7 +168,7 @@
         {
           "name": "disclaimerText",
           "type": "text",
-          "default":  "See ei ole ametlik H5P.org sisutüüp. Porbleemide korral pöörduge autori poole: tarmo.johannes@muba.edu.ee"
+          "default":  "See ei ole ametlik H5P.org sisutüüp. Probleemide korral pöörduge autori poole: tarmo.johannes@muba.edu.ee"
         }
       ]
     }
