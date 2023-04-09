@@ -3,7 +3,7 @@
   "description": "Library for H5p Degree Dictations",
   "majorVersion": 1,
   "minorVersion": 2,
-  "patchVersion": 4,
+  "patchVersion": 5,
   "runnable": 1,
   "author": "Tarmo Johannes",
   "license": "MIT",

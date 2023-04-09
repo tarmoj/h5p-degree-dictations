@@ -1,66 +1,66 @@
 {
   "semantics": [
     {
-      "label": "Disclaimer",
-      "default": "This is not an official H5P.org content type. With any problems please turn to the author tarmo.johannes@muba.edu.ee ",
-      "description": "NB!"
+      "label": "Уведомление",
+      "default": "Это не официальный тип контента H5P.org. С любыми проблемами обращайтесь к автору tarmo.johannes@muba.edu.ee",
+      "description": "Внимание!"
     },
     {
-      "label": "Degree dictation exercises",
-      "description": "Define degree dictations  (max 100)",
-      "entity": "Dictation",
+      "label": "Ступеневые диктанты",
+      "description": "Создать упражнения ступеневых диктантов (макс. 100)",
+      "entity": "Диктант",
       "field": {
-        "label": "Exercise data",
+        "label": "Данные упражнений",
         "fields": [
           {
-            "label": "(Sub)title of the exercise",
-            "description": "(Sub)title of the exercise shown in dropdown menu"
+            "label": "Подзаголовок задания",
+            "description": "Подзаголовок задания, показанного в выпадающем меню"
           },
           {
-            "label": "Difficulty level",
-            "description": "General difficulty level: simple|medium|complex",
+            "label": "Уровень трудности",
+            "description": "Основной уровень трудности:: простой|средний|сложный",
             "options": [
               {
-                "label": "Simple"
+                "label": "Простой"
               },
               {
-                "label": "Medium"
+                "label": "Средний"
               },
               {
-                "label": "Complex"
+                "label": "Сложный"
               }
             ]
           },
           {
-            "label": "Scale (mode)",
-            "description": "Scale where the exercise will be played",
+            "label": "Лад",
+            "description": "Лад, в котором прозвучит задание",
             "options": [
               {
-                "label": "Major"
+                "label": "Мажор"
               },
               {
-                "label": "Harmonic minor"
+                "label": "Гармонический минор"
               },
               {
-                "label": "Natural minor"
+                "label": "Натуральный минор"
               },
               {
-                "label": "Dorian"
+                "label": "Дорийский"
               },
               {
-                "label": "Phrygian"
+                "label": "Фригийский"
               },
               {
-                "label": "Lydian"
+                "label": "Лидийский"
               },
               {
-                "label": "Mixolydian"
+                "label": "Миксолидийский"
               }
             ]
           },
           {
-            "label": "Degrees",
-            "description": "Enter degrees as numbers 1..8. Use - (minus) for degrees under tonic. Use 8 for the octave (upper 1. In reseponse both 1 and 8 are correct). Allowed range: lower fifth to octave (-5..8)"
+            "label": "Ступени",
+            "description": "Введи ступени номерами 1…7 (8). Используй перед номером - (минус) для ступеней ниже тоники. Для октавы (верхняя первая ступень) используй номер 8. (В ответе верны оба номера: 1 и 8). Допущенный диапазон: от нижней пятой ступени до верхней тоники (-5..8)"
           }
         ]
       }
@@ -69,101 +69,101 @@
       "label": "UI labels",
       "fields": [
         {
-          "default": "You will hear first the tonic note and then a short melody of 7 notes. Enter the degrees as numbers 1..7"
+          "default": "Вы услышите сначала тонику, а затем короткую мелодию из 7-и нот. Введите ступени номерами 1..7."
         },
         {
-          "default": "Instrument"
+          "default": "Инструмент"
         },
         {
-          "default": "Flute"
+          "default": "Флейта"
         },
         {
-          "label": "Oboe",
-          "default": "Oboe"
+          "label": "Гобой",
+          "default": "Гобой"
         },
         {
-          "default": "Guitar"
+          "default": "Гитара"
         },
         {
-          "default": "Violin"
+          "default": "Скрипка"
         },
         {
-          "default": "Play"
+          "default": "Сыграть"
         },
         {
-          "default": "Stop"
+          "default": "Стоп"
         },
         {
-          "default": "Check"
+          "default": "Проверить"
         },
         {
-          "default": "Enter degrees"
+          "default": "Введите ступени"
         },
         {
-          "default": "Correct"
+          "default": "Верно"
         },
         {
-          "default": "Wrong"
+          "default": "Неверно"
         },
         {
-          "default": "Correct degrees are:"
+          "default": "Верные ступени:"
         },
         {
-          "default": "Clear"
+          "default": "Очистить"
         },
         {
-          "default": "Volume"
+          "default": "Громкость"
         },
         {
-          "default": "Mode (scale)"
+          "default": "Лад"
         },
         {
-          "default": "Select dictation"
+          "default": "Выбрать диктант"
         },
         {
-          "default": "Previous"
+          "default": "Предыдущий"
         },
         {
-          "default": "Next"
+          "default": "Следующий"
         },
         {
-          "default": "Difficulty level"
+          "default": "Уровень трудности"
         },
         {
-          "default": "The project is supported by European Social Fund"
+          "default": "Проект поддерживается Европейским социальным фондом"
         },
         {
-          "default": "Simple"
+          "default": "Простой"
         },
         {
-          "default": "Medium"
+          "default": "Средний"
         },
         {
-          "default": "Complex"
+          "default": "Сложный"
         },
         {
-          "default": "Major"
+          "default": "Мажор"
         },
         {
-          "default": "Harmonic minor"
+          "default": "Гармонический минор"
         },
         {
-          "default": "Natural minor"
+          "default": "Натуральный минор"
         },
         {
-          "default": "Dorian"
+          "default": "Дорийский"
         },
         {
-          "default": "Phrygian"
+          "default": "Фригийский"
         },
         {
-          "default": "Lydian"
+          "default": "Лидийский"
         },
         {
-          "default": "Mixolydian"
+          "default": "Миксолидийский"
         },
         {
-          "default": "NB! This is not an official H5P.org content type. With any problems please turn to the author tarmo.johannes@muba.edu.ee "
+          "default": "Внимание! Это не официальный тип контента H5P.org. С любыми проблемами обращайтесь к автору tarmo.johannes@muba.edu.ee"
         }
       ]
     }
