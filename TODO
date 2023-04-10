@@ -23,7 +23,7 @@ brauseris clear cookies, reload
 pack (from parent directory)
  h5p pack H5P.DegreeDictations H5PEditor.DegreeInput  DegreeDictations.h5p
  with subfolders structure:
- h5p pack h5p-degree-dictations h5p-editor-degree-input  DegreeDictations-1.2.4.h5p
+ h5p pack h5p-degree-dictations h5p-editor-degree-input  DegreeDictations-1.2.5.h5p
  
  
 
