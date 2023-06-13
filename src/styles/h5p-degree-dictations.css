@@ -6,14 +6,14 @@
 
 .h5p-degree-dictations {
   --dark-primary-color: #303F9F;
-  --default-primary-color: #3F51B5;
-  --light-primary-color:    #C5CAE9;
+  --default-primary-color: #1a73d9;
+  --light-primary-color:     #6391CA;
   --text-on-primary-color: #FFFFFF;
   --accent-color: #FFC107;
   --primary-text-color:#212121;
   --secondary-text-color: #757575;
   --divider-color: #BDBDBD;
-  --surface-color: ghostwhite;
+  --surface-color: white;
 
   padding: 1em;
   background: var(--surface-color);
@@ -26,10 +26,10 @@
 .h5p-degree-dictations .button, .select, .textField, .degreeCell {
   /*font-family: arial;*/
   color: var(--primary-text-color) !important;
-  box-shadow: 3px 3px 3px var(--dark-primary-color);
+  box-shadow: 0 0 0.4em 0 var(--light-primary-color);
   padding: 5px 10px;
   border-radius: 5px;
-  background: var(--light-primary-color);
+  background: var(--surface-color);
 }
 
 .h5p-degree-dictations .select {
@@ -42,12 +42,12 @@
 
 .h5p-degree-dictations .button:hover, .select:hover {
   color: var(--text-on-primary-color) !important;
-  background: var(--dark-primary-color);
+  background: var(--default-primary-color);
 }
 
 .h5p-degree-dictations .textField {
-  background: var(--surface-color);
-  border: 1px solid var(--dark-primary-color);
+  border: 1px solid #C7C7C7;
+  padding: 0.25em 0.4em;
   margin-right: 5px;
 }
 
@@ -85,101 +85,4 @@
   align-items: center;
 }
 
-/* slider style, created with: https://www.cssportal.com/style-input-range/  */
-
-.h5p-degree-dictations .slider {
-  /*height: 27px;*/
-  -webkit-appearance: none;
-  margin-left: 5px;
-  width: 100px;
-  position: relative;
-  -moz-top: 8px;
-  background: transparent;
-
-}
-
-.h5p-degree-dictations .slider:focus {
-  outline: none;
-}
-
-.h5p-degree-dictations .slider::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 2px;
-  cursor: pointer;
-  animate: 0.2s;
-  box-shadow: 1px 1px 1px var(--dark-primary-color);
-  background: var(--light-primary-color);
-}
-.h5p-degree-dictations .slider::-webkit-slider-thumb {
-  box-shadow: 1px 1px 1px var(--dark-primary-color);
-  border: 1px solid var(--dark-primary-color);
-  height: 12px;
-  width: 12px;
-  border-radius: 6px;
-  background: var(--light-primary-color);
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -5px;
-}
-
-.h5p-degree-dictations .slider::-moz-range-track {
-  width: 100%;
-  height: 2px;
-  cursor: pointer;
-  animate: 0.2s;
-  box-shadow: 1px 1px 1px var(--dark-primary-color);
-  background: var(--light-primary-color);
-}
-.h5p-degree-dictations .slider::-moz-range-thumb {
-  box-shadow: 1px 1px 1px var(--dark-primary-color);
-  border: 1px solid var(--dark-primary-color);
-  height: 12px;
-  width: 12px;
-  border-radius: 6px;
-  background: var(--light-primary-color);
-  cursor: pointer;
-}
-
-
-
-.h5p-degree-dictations .slider::-ms-track {
-  width: 100%;
-  height: 4px;
-  cursor: pointer;
-  animate: 0.2s;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-.h5p-degree-dictations .slider::-ms-fill-lower {
-  background: var(--light-primary-color);
-  box-shadow: 1px 1px 1px var(--dark-primary-color);
-}
-.h5p-degree-dictations .slider::-ms-fill-upper {
-  background: var(--light-primary-color);
-  box-shadow: 1px 1px 1px var(--dark-primary-color);
-}
-.h5p-degree-dictations .slider::-ms-thumb {
-  margin-top: 1px;
-  box-shadow: 1px 1px 1px var(--dark-primary-color);
-  border: 1px solid var(--dark-primary-color);
-  height: 12px;
-  width: 12px;
-  border-radius: 6px;
-  background: var(--light-primary-color);
-  cursor: pointer;
-}
-.h5p-degree-dictations .slider:focus::-ms-fill-lower {
-  background: var(--light-primary-color);
-}
-
-.h5p-degree-dictations .slider:focus::-ms-fill-upper {
-  background: var(--light-primary-color);
-}
-
-
-
-/*made with: https://doodlenerd.com/html-control/css-dropdown-generator*/
-
-/* see also: https://tutorialdeep.com/live-editor/css-style-select-dropdown/*/
 

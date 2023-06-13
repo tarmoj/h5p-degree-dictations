@@ -24,6 +24,9 @@ const config = {
     new MiniCssExtractPlugin({
       filename: 'joubel-slider.css'
     }),
+    new MiniCssExtractPlugin({
+      filename: 'joubel-simple-rounded-button.css'
+    }),
     new MinifyPlugin({}, {
       sourceMap: isDev
     })

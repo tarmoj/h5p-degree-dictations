@@ -397,7 +397,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       $('<button>', {
         id: "resetButton",
-        class: "button",
+        class: "joubel-simple-rounded-button",
         text: this.l10n.clear,
         click: clearDegreeInputs
       }).appendTo($degreeInput);
@@ -405,7 +405,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $('<button>', {
         text: this.l10n.check,
         id: 'checkButton',
-        class: 'button',
+        class: 'joubel-simple-rounded-button',
         click: function () {
           checkDegreesResponse();
         }
