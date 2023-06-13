@@ -456,7 +456,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
 
       $wrapper.append([ $instrumentSelection, '<br />' ]);
 
-      const $controlRow = $('<div>', {id: "controlRow", class:"vertical-center"});
+      const $controlRow = $('<div>', {id: "controlRow", class:"vertical-center top-margin"});
 
       $controlRow.append($('<button>', {
         text: this.l10n.play,
