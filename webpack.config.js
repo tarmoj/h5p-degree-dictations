@@ -18,6 +18,12 @@ const config = {
     new MiniCssExtractPlugin({
       filename: 'h5p-degree-dictations.css'
     }),
+    new MiniCssExtractPlugin({
+      filename: 'joubel-ui.css'
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'joubel-slider.css'
+    }),
     new MinifyPlugin({}, {
       sourceMap: isDev
     })

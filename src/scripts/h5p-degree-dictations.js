@@ -461,7 +461,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $controlRow.append($('<button>', {
         text: this.l10n.play,
         id: 'playButton',
-        class: "button",
+        class: "h5p-joubelui-button",
         click: function () {
           console.log("PLAY");
           play();
@@ -471,7 +471,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $controlRow.append($('<button>', {
         text: this.l10n.stop,
         id: 'stopButton',
-        class: "button",
+        class: "h5p-joubelui-button",
         click: function () {
           console.log("STOP");
           stopSound();
@@ -484,7 +484,7 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       $controlRow.append( $("<input>", {
             id: "volumeSlider",
             type: "range",
-            class: "slider",
+            class: "h5p-joubel-ui-slider",
             min: -40,
             max: 6,
             value: 0
@@ -513,21 +513,21 @@ export default class DegreeDictations extends H5P.EventDispatcher {
       const $disclaimerDiv = $('<div>', {id:"disclaimerDiv"}).html("<br /><small>" + this.l10n.disclaimerText +  "</small>");
       $wrapper.append($disclaimerDiv);
 
-      const euLogoPath = this.libraryPath + "/eu.jpg";
-      console.log("logo path:", euLogoPath);
-      const $euDiv = $('<div>', {id:"euDiv"}).html("<br /><p><small>" + this.l10n.euSupportText +  "</small></p>");
-      $euDiv.append(
-          $('<img>', {
-            id: "euLogo",
-            alt: "The project is supported by EU social Fund",
-            width: "200px",
-            align: "left",
-            src: euLogoPath,
-            load: () => this.trigger("resize") // probably does not work...
-          })
-      );
-
-      $wrapper.append($euDiv);
+      // const euLogoPath = this.libraryPath + "/eu.jpg";
+      // console.log("logo path:", euLogoPath);
+      // const $euDiv = $('<div>', {id:"euDiv"}).html("<br /><p><small>" + this.l10n.euSupportText +  "</small></p>");
+      // $euDiv.append(
+      //     $('<img>', {
+      //       id: "euLogo",
+      //       alt: "The project is supported by EU social Fund",
+      //       width: "200px",
+      //       align: "left",
+      //       src: euLogoPath,
+      //       load: () => this.trigger("resize") // probably does not work...
+      //     })
+      // );
+      //
+      // $wrapper.append($euDiv);
 
       loadExercise(0); // perhaps use localStorage to remember last exercise... must create unique identifier by exercise ID then...
 

@@ -16,6 +16,9 @@ The dictation must consist exactly 7 degrees. E.g:
 
 Developed  at Georg Ots Tallinna Music School for project "Digitaalse muusikateooria ja solfedžo õppevara täiustamine ja arendamine"   with the support of European Social Fund (Euroopa Sotsiaalfond)
 
+<img src="./eu.jpg" alt="Euroopa Sotsiaalfond" width="250"/>
+
+
 
 ## License
 
